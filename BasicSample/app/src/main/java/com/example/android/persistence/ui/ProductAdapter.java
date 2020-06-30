@@ -47,8 +47,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void setProductList(final List<? extends Product> productList) {
         if (mProductList == null) {
             mProductList = productList;
+            // Notice-wangjj: notifyItemRangeInserted
             notifyItemRangeInserted(0, productList.size());
         } else {
+            // Notice-wangjj: DiffUtil
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -77,6 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 }
             });
             mProductList = productList;
+            // Notice-wangjj: dispatchUpdatesTo a adapter
             result.dispatchUpdatesTo(this);
         }
     }
